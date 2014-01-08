@@ -1,8 +1,12 @@
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
@@ -145,8 +149,26 @@ public class TvElectronics {
     
     // TO DO (Aufgabe 4): Vergrößern Sie hier das aktuelle Bild des Main-Display, abhängig von "on"!
     
+    double zoomLevel = 1.33;
+    Image originalImage = (Image) mainDisplayLabel.getIcon();
     
-    // ?????
+    int imageWidth = originalImage.getWidth(mainDisplayLabel);
+    int imageHeight = originalImage.getHeight(mainDisplayLabel);
+    
+    int newImageWidth = (int) (imageWidth * zoomLevel);    
+	int newImageHeight = (int) (imageHeight * zoomLevel);
+	
+    Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+    if (on == false)
+    	mainDisplayLabel.setIcon((Icon) resizedImage);
+    
+	// http://stackoverflow.com/a/9342407
+    /*int newImageWidth = imageWidth * zoomLevel;    
+	int newImageHeight = imageHeight * zoomLevel;
+    BufferedImage resizedImage = new BufferedImage(newImageWidth , newImageHeight, imageType);
+    Graphics2D g = resizedImage.createGraphics();
+    g.drawImage(originalImage, 0, 0, newImageWidth , newImageHeight , null);
+    g.dispose();*/
     
   }
   
