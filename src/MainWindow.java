@@ -201,7 +201,7 @@ public class MainWindow {
     
     cbchannels.addItemListener(new ItemListener(){
       public void itemStateChanged(ItemEvent e){
-          {
+    	  if (e.getStateChange() == ItemEvent.SELECTED) {
           int number = cbchannels.getSelectedIndex();
           try {
             myTvElectronics.setChannel(channellist.get(number).getKanal(), false);
