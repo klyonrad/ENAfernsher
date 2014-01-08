@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import java.util.*;
+
 import javax.swing.*;
 
 
@@ -228,9 +228,21 @@ public class MainWindow {
       public void mouseClicked(MouseEvent e) {
         if(btplaypause.getText() == "►"){
           btplaypause.setText("||");
+          try {
+			myTvElectronics.recordTimeShift(true);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         }
         else{
           btplaypause.setText("►");
+          try {
+			myTvElectronics.playTimeShift(true, 10);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         }
         
       }
