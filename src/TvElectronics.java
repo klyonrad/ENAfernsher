@@ -144,23 +144,33 @@ public class TvElectronics {
   * 
   * @param on    true: Vergrößerung auf 133%; false: Normalgröße 100%
   */
-  public void setZoom(boolean on) {
+  public void setZoom(boolean on, ImageIcon icon) {
     System.out.println("Zoom = " + (on ? "133%" : "100%"));   
-    
+    icon = (ImageIcon) mainDisplayLabel.getIcon();
     // TO DO (Aufgabe 4): Vergrößern Sie hier das aktuelle Bild des Main-Display, abhängig von "on"!
+    if (on == true) {
+    	double zoomLevel = 1.33;
     
-    double zoomLevel = 1.33;
-    Image originalImage = (Image) mainDisplayLabel.getIcon();
+    	try {
+    	Image originalImage = icon.getImage();    	
+    	int imageWidth = originalImage.getWidth(mainDisplayLabel);
+    	int imageHeight = originalImage.getHeight(mainDisplayLabel);
     
-    int imageWidth = originalImage.getWidth(mainDisplayLabel);
-    int imageHeight = originalImage.getHeight(mainDisplayLabel);
-    
-    int newImageWidth = (int) (imageWidth * zoomLevel);    
-	int newImageHeight = (int) (imageHeight * zoomLevel);
+    	int newImageWidth = (int) (imageWidth * zoomLevel);    
+    	int newImageHeight = (int) (imageHeight * zoomLevel);
 	
-    Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
-    if (on == false)
-    	mainDisplayLabel.setIcon((Icon) resizedImage);
+    	Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+    	
+    	mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
+    	
+    	} catch (Exception ex)  {
+            // TODO Auto-generated catch block
+            ex.printStackTrace();
+          }
+    
+
+    
+    }
     
 	// http://stackoverflow.com/a/9342407
     /*int newImageWidth = imageWidth * zoomLevel;    
@@ -238,7 +248,7 @@ public class TvElectronics {
       tvEl.setChannel("54d", true);
       tvEl.setPictureInPicture(true);
       tvEl.setVolume(47);
-      tvEl.setZoom(true);
+     // tvEl.setZoom(true);
       tvEl.recordTimeShift(true);
       while (tvEl.recordingStartTime + 3 > tvEl.now())
       ; // provisorische Warteschleife (Thread wäre ordentlicher)
