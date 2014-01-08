@@ -144,9 +144,9 @@ public class TvElectronics {
   * 
   * @param on    true: Vergrößerung auf 133%; false: Normalgröße 100%
   */
-  public void setZoom(boolean on, ImageIcon icon) {
+  public void setZoom(boolean on) {
     System.out.println("Zoom = " + (on ? "133%" : "100%"));   
-    icon = (ImageIcon) mainDisplayLabel.getIcon();
+    ImageIcon icon = (ImageIcon) mainDisplayLabel.getIcon();
     // TO DO (Aufgabe 4): Vergrößern Sie hier das aktuelle Bild des Main-Display, abhängig von "on"!
     if (on == true) {
     	double zoomLevel = 1.33;
@@ -167,18 +167,28 @@ public class TvElectronics {
             // TODO Auto-generated catch block
             ex.printStackTrace();
           }
-    
-
-    
     }
     
-	// http://stackoverflow.com/a/9342407
-    /*int newImageWidth = imageWidth * zoomLevel;    
-	int newImageHeight = imageHeight * zoomLevel;
-    BufferedImage resizedImage = new BufferedImage(newImageWidth , newImageHeight, imageType);
-    Graphics2D g = resizedImage.createGraphics();
-    g.drawImage(originalImage, 0, 0, newImageWidth , newImageHeight , null);
-    g.dispose();*/
+    	else if (on == false) {
+        	double zoomLevel2 = 1.33;
+        
+        	try {
+        	Image originalImage = icon.getImage();    	
+        	int imageWidth = originalImage.getWidth(mainDisplayLabel);
+        	int imageHeight = originalImage.getHeight(mainDisplayLabel);
+        
+        	int newImageWidth = (int) (imageWidth / zoomLevel2);    
+        	int newImageHeight = (int) (imageHeight / zoomLevel2);
+    	
+        	Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+        	
+        	mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
+        	
+        	} catch (Exception ex)  {
+                // TODO Auto-generated catch block
+                ex.printStackTrace();
+              }    
+    }    
     
   }
   

@@ -145,9 +145,9 @@ public class MainWindow {
     			if (number == -1)
     				return;
     			if (number == 1)
-    				myTvElectronics.setZoom(false, ViewAreaImage);
+    				myTvElectronics.setZoom(false);
     			else
-    				myTvElectronics.setZoom(true, ViewAreaImage);
+    				myTvElectronics.setZoom(true);
     			} catch (Exception ex) {
     				ex.printStackTrace();
     			}
