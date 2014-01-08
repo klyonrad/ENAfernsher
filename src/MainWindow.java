@@ -137,23 +137,26 @@ public class MainWindow {
     pbtoverlay.add(btplaypause);
     
     final JComboBox cbframebounds = new JComboBox();
-    cbframebounds.addItemListener(new ItemListener() {    	
-    	public void itemStateChanged(ItemEvent arg0) {
-    		if (arg0.getStateChange() == ItemEvent.SELECTED) {
-    			int number = cbframebounds.getSelectedIndex();
-    			try {
-    			if (number == -1)
-    				return;
-    			if (number == 1)
-    				myTvElectronics.setZoom(false);
-    			else
-    				myTvElectronics.setZoom(true);
-    			} catch (Exception ex) {
-    				ex.printStackTrace();
-    			}
-    		} // end of if
-    	} 
-    });
+    
+    cbframebounds.addItemListener(new ItemListener(){
+        public void itemStateChanged(ItemEvent e){
+          if (e.getStateChange() == ItemEvent.SELECTED){
+            int number = cbframebounds.getSelectedIndex();
+            try {
+              if (cbframebounds.getSelectedIndex() != 0) {
+                myTvElectronics.setZoom(true);
+              }else{
+                myTvElectronics.setZoom(false);
+              } // end of if
+              
+            } catch (Exception ex) {
+              // TODO Auto-generated catch block
+              ex.printStackTrace();
+            }
+          } // end of if
+        }
+      });
+    
     cbframebounds.setBounds(151, 116, 86, 20);
     cbframebounds.addItem("16:9");
     cbframebounds.addItem("4:3");
