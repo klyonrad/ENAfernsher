@@ -15,7 +15,7 @@ public class Fehrnseher_Daten {
   private String kanalName;
   private String[] kanalReihenfolge;
   private int kanalAktuell;
-  private String seitenverhaeltnis;
+  private int seitenverhaeltnis;
   private int volume;
   // Ende Attribute
   
@@ -24,7 +24,7 @@ public class Fehrnseher_Daten {
     this.kanalName = "";
     this.kanalReihenfolge = null;
     this.kanalAktuell = 0;
-    this.seitenverhaeltnis = "16:9";
+    this.seitenverhaeltnis = 0;
     this.volume = 20;
     this.readFromFile();
   }
@@ -66,11 +66,11 @@ public class Fehrnseher_Daten {
     this.kanalAktuell = kanalAktuell;
   }
   
-  public String getSeitenverhaeltnis() {
+  public int getSeitenverhaeltnis() {
     return seitenverhaeltnis;
   }
   
-  public void setSeitenverhaeltnis(String seitenverhaeltnis) {
+  public void setSeitenverhaeltnis(int seitenverhaeltnis) {
     this.seitenverhaeltnis = seitenverhaeltnis;
   }
   
@@ -107,6 +107,7 @@ public class Fehrnseher_Daten {
         fop.write(contentInBytes);
         fop.write(System.getProperty("line.separator").getBytes());
       } // end of for
+      /*
       for (int i = 0; i < this.kanalAnzahl - 1; i++) {
         if (kanalReihenfolge[i] != "") {
           this.kanalReihenfolge[i] += ";";
@@ -116,7 +117,7 @@ public class Fehrnseher_Daten {
       } // end of for
       byte[] contentInBytes = this.kanalReihenfolge[this.kanalAnzahl - 1].getBytes();                               //verhindern das der Letzte Eintrag auch mit ; endet.
       fop.write(contentInBytes);
-      
+      */
       fop.flush();
       fop.close();
     } catch (IOException e) {
@@ -136,14 +137,14 @@ public class Fehrnseher_Daten {
     catch (IOException e) {
       e.printStackTrace();
     }
-    if (lines.size() >= 6) {
+    if (lines.size() >= 5) {
       this.kanalAnzahl = Integer.parseInt(lines.get(0));
       this.kanalName = lines.get(1);
       this.kanalAktuell = Integer.parseInt(lines.get(2));
-      this.seitenverhaeltnis = lines.get(3);
+      this.seitenverhaeltnis = Integer.parseInt(lines.get(3));
       this.volume = Integer.parseInt(lines.get(4));
-      this.kanalReihenfolge = lines.get(5).split(";");
-    } // end of if   
+      //this.kanalReihenfolge = lines.get(5).split(";");
+    }// end of if   
   } 
 }
   

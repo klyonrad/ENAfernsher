@@ -149,42 +149,42 @@ public class TvElectronics {
     ImageIcon icon = (ImageIcon) mainDisplayLabel.getIcon();
     // TO DO (Aufgabe 4): Vergrößern Sie hier das aktuelle Bild des Main-Display, abhängig von "on"!
     if (on == true) {
-    	double zoomLevel = 1.33;
+      double zoomLevel = 1.33;
     
-    	try {
-    	Image originalImage = icon.getImage();    	
-    	int imageWidth = originalImage.getWidth(mainDisplayLabel);
-    	int imageHeight = originalImage.getHeight(mainDisplayLabel);
+      try {
+      Image originalImage = icon.getImage();      
+      int imageWidth = originalImage.getWidth(mainDisplayLabel);
+      int imageHeight = originalImage.getHeight(mainDisplayLabel);
     
-    	int newImageWidth = (int) (imageWidth * zoomLevel);    
-    	int newImageHeight = (int) (imageHeight * zoomLevel);
-	
-    	Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
-    	
-    	mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
-    	
-    	} catch (Exception ex)  {
+      int newImageWidth = (int) (imageWidth * zoomLevel);    
+      int newImageHeight = (int) (imageHeight * zoomLevel);
+  
+      Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+      
+      mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
+      
+      } catch (Exception ex)  {
             // TODO Auto-generated catch block
             ex.printStackTrace();
           }
     }
     
-    	else if (on == false) {
-        	double zoomLevel2 = 1.33;
+      else if (on == false) {
+          double zoomLevel2 = 1.33;
         
-        	try {
-        	Image originalImage = icon.getImage();    	
-        	int imageWidth = originalImage.getWidth(mainDisplayLabel);
-        	int imageHeight = originalImage.getHeight(mainDisplayLabel);
+          try {
+          Image originalImage = icon.getImage();      
+          int imageWidth = originalImage.getWidth(mainDisplayLabel);
+          int imageHeight = originalImage.getHeight(mainDisplayLabel);
         
-        	int newImageWidth = (int) (imageWidth / zoomLevel2);    
-        	int newImageHeight = (int) (imageHeight / zoomLevel2);
-    	
-        	Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
-        	
-        	mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
-        	
-        	} catch (Exception ex)  {
+          int newImageWidth = (int) (imageWidth / zoomLevel2);    
+          int newImageHeight = (int) (imageHeight / zoomLevel2);
+      
+          Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+          
+          mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
+          
+          } catch (Exception ex)  {
                 // TODO Auto-generated catch block
                 ex.printStackTrace();
               }    
@@ -201,7 +201,7 @@ public class TvElectronics {
     System.out.println("PiP = " + (show ? "visible" : "hidden"));   
     
     // TO DO (Aufgabe 4): Machen Sie hier this.pipDisplay sichtbar bzw. unsichtbar!
-      this.pipDisplay.setVisible(show);
+    this.pipDisplay.setVisible(show);
   }
   
   /**
