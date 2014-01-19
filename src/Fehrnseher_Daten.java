@@ -141,7 +141,7 @@ public class Fehrnseher_Daten {
       this.kanalAnzahl = Integer.parseInt(lines.get(0));
       this.kanalName = lines.get(1);
       this.kanalAktuell = Integer.parseInt(lines.get(2));
-      this.seitenverhaeltnis = Integer.parseInt(lines.get(3));
+      this.seitenverhaeltnis = Integer.parseInt(lines.get(3));     //probelm
       this.volume = Integer.parseInt(lines.get(4));
       //this.kanalReihenfolge = lines.get(5).split(";");
     }// end of if   

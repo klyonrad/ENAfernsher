@@ -10,6 +10,10 @@ import java.awt.event.*;
 
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.border.LineBorder; 
+
+
 
 
 public class MainWindow {
@@ -25,6 +29,8 @@ public class MainWindow {
   private JComboBox cbchannels;
   private JComboBox cbframebounds;
   private JSlider slider;
+  private String deselectedFramebound;
+  private long timeStart;
   
   /**
   * Launch the application.
@@ -73,36 +79,36 @@ public class MainWindow {
     
     final Panel pbtoverlay = new Panel();
     /*pbtoverlay.addMouseMotionListener(new MouseMotionAdapter() {
-    	@Override
-    	public void mouseMoved(MouseEvent e) {
-    		pbtoverlay.setVisible(true);
-    	}
+    @Override
+    public void mouseMoved(MouseEvent e) {
+    pbtoverlay.setVisible(true);
+    }
     });
     pbtoverlay.addMouseListener(new MouseAdapter() {
-    	@Override
-    	public void mouseEntered(MouseEvent e) {
-    		pbtoverlay.setVisible(true);
-    	}
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    pbtoverlay.setVisible(true);
+    }
     });
     frame.addMouseListener(new MouseAdapter() {
-    	@Override
-    	public void mouseEntered(MouseEvent e) {
-    		pbtoverlay.setVisible(true);
-    	}
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    pbtoverlay.setVisible(true);
+    }
     });
     frame.addMouseListener(new MouseAdapter() {
-    	@Override
-    	public void mouseExited(MouseEvent arg0) {
-    		pbtoverlay.setVisible(false);
-    	
-    	}
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+    pbtoverlay.setVisible(false);
+    
+    }
     }); */
     /*
     frame.addMouseMotionListener(new MouseMotionAdapter() {
-    	@Override
-    	public void mouseMoved(MouseEvent arg0) {
-    		pbtoverlay.setVisible(true);
-    	}
+    @Override
+    public void mouseMoved(MouseEvent arg0) {
+    pbtoverlay.setVisible(true);
+    }
     });*/
     /*pbtoverlay.addMouseMotionListener(new MouseMotionAdapter() {
     @Override
@@ -132,8 +138,18 @@ public class MainWindow {
     pnlViewArea.add(lblViewArea);
     lblViewArea.setIcon(new ImageIcon(MainWindow.class.getResource("/images/downformaintenance.png")));
     
+    final JPanel pipPanel = new JPanel();
+    pipPanel.setBounds(953, 11, 351, 241);
+    pipPanel.setVisible(true);
+    frame.getContentPane().add(pipPanel);
     
-    myTvElectronics = new TvElectronics(pnlViewArea, pnlViewArea, lblViewArea);
+    final JLabel lblPip = new JLabel("");
+    lblPip.setIcon(new ImageIcon(MainWindow.class.getResource("/images/testImage.jpg")));
+    lblPip.setBorder(new LineBorder(Color.WHITE,1));
+    pipPanel.add(lblPip);
+    lblPip.setVisible(true);
+    
+    myTvElectronics = new TvElectronics(pnlViewArea, pipPanel, lblViewArea);
     channellist = myTvElectronics.scanChannels();
     
     JButton btchannelup = new JButton("▲");
@@ -175,15 +191,7 @@ public class MainWindow {
     cbframebounds.addItem("2,35:1");
     pbtoverlay.add(cbframebounds);
     
-    final JPanel pipPanel = new JPanel();
-    pipPanel.setBounds(953, 11, 351, 241);
-    pipPanel.setVisible(true);
-    frame.getContentPane().add(pipPanel);
     
-    final JLabel lblPip = new JLabel("pip");
-    lblPip.setIcon(new ImageIcon(MainWindow.class.getResource("/images/testImage.jpg")));
-    pipPanel.add(lblPip);
-    lblPip.setVisible(true);
     
     /*Eventhandler*/
     
@@ -191,8 +199,15 @@ public class MainWindow {
       @Override
       public void mouseClicked(MouseEvent arg0) {
         try {
+          try{
+            myTvElectronics.recordTimeShift(false);
+            btplaypause.setText("||");
+          }catch(Exception ignoreCase){}
+          cbframebounds.setSelectedIndex(0);
           if (cbchannels.getItemCount() > 0 && cbchannels.getSelectedIndex() > 0) {
             cbchannels.setSelectedIndex(cbchannels.getSelectedIndex() - 1);
+          }else if(cbchannels.getItemCount() > 0 && cbchannels.getSelectedIndex() == 0){
+            cbchannels.setSelectedIndex(cbchannels.getItemCount() - 1);
           } // end of if
         } catch (Exception e) {
           // TODO Auto-generated catch block
@@ -205,8 +220,15 @@ public class MainWindow {
       @Override
       public void mouseClicked(MouseEvent argv1) {
         try {
+          try{
+            myTvElectronics.recordTimeShift(false);
+            btplaypause.setText("||");
+          }catch(Exception ignoreCase){}
+          cbframebounds.setSelectedIndex(0);
           if (cbchannels.getItemCount() > 0 && cbchannels.getSelectedIndex() < cbchannels.getItemCount() - 1) {
             cbchannels.setSelectedIndex(cbchannels.getSelectedIndex() + 1);
+          }else if(cbchannels.getItemCount() > 0 && cbchannels.getSelectedIndex() == cbchannels.getItemCount() - 1){
+            cbchannels.setSelectedIndex(0);
           } // end of if
         } catch (Exception e) {
           // TODO Auto-generated catch block
@@ -221,6 +243,10 @@ public class MainWindow {
           int number = cbchannels.getSelectedIndex();
           try {
             myTvElectronics.setChannel(channellist.get(number).getKanal(), false);
+            try{
+              myTvElectronics.recordTimeShift(false);
+              btplaypause.setText("||");
+            }catch(Exception ignoreCase){}
           } catch (Exception ex) {
             // TODO Auto-generated catch block
             ex.printStackTrace();
@@ -234,17 +260,20 @@ public class MainWindow {
         if (e.getStateChange() == ItemEvent.SELECTED){
           int number = cbframebounds.getSelectedIndex();
           try {
-            if (cbframebounds.getSelectedIndex() != 0) {
+            if (cbframebounds.getSelectedIndex() != 0 && deselectedFramebound.equals("4:3") == false && deselectedFramebound.equals("2,35:1") == false) {
               myTvElectronics.setZoom(true);
-            }else{
+            }else if(cbframebounds.getSelectedIndex() == 0){
               myTvElectronics.setZoom(false);
+            }else{
+              return;
             } // end of if
-            
           } catch (Exception ex) {
             // TODO Auto-generated catch block
             ex.printStackTrace();
           }
-        } // end of if
+        }else{
+          deselectedFramebound = e.getItem().toString();
+        }
       }
     });
     
@@ -253,10 +282,12 @@ public class MainWindow {
       public void mouseClicked(MouseEvent e) {
         if (pip == true){
           myTvElectronics.setPictureInPicture(false);
+          frame.getContentPane().validate();
           pip = false;
         }else{
-          lblPip.setIcon(lblViewArea.getIcon());
+          //lblPip.setIcon(lblViewArea.getIcon());
           myTvElectronics.setPictureInPicture(true);
+          frame.getContentPane().validate();
           pip = true;
         }
       }
@@ -267,65 +298,93 @@ public class MainWindow {
       public void mouseClicked(MouseEvent e) {
         if(btplaypause.getText() == "►"){
           btplaypause.setText("||");
+          try{
+            myTvElectronics.playTimeShift(true,(int) (myTvElectronics.now() - timeStart));
+            myTvElectronics.recordTimeShift(false);
+          }catch(Exception ex){
+            System.err.println(ex);
+          }
         }
         else{
           btplaypause.setText("►");
+          try{
+            myTvElectronics.recordTimeShift(true);
+            timeStart = myTvElectronics.now();
+          }catch(Exception ex){
+            System.err.println(ex);
+          }
         }
         
       }
     });
     
+    slider.addChangeListener(new ChangeListener() {
+      @Override
+      public void stateChanged(ChangeEvent ce) {
+        try{
+          myTvElectronics.setVolume(((JSlider) ce.getSource()).getValue());
+        }catch(Exception e){
+          System.err.println(e);
+        }
+      }
+    });
+    
+    
     fd = new Fehrnseher_Daten();
     
     try{
-    	System.out.println("blb blo");
-    	fd.readFromFile();
-    	System.out.println(fd.getVolume());
-    	
-    	if(cbchannels.getItemAt(fd.getKanalAktuell()).toString().equals(fd.getKanalName())){
-    		cbchannels.setSelectedIndex(fd.getKanalAktuell());
-    		System.out.println("Set channel to " + fd.getKanalAktuell());
-    	}else{
-    		int index = 0;
-    		while(index < cbchannels.getItemCount() || cbchannels.getItemAt(index).toString().equals(fd.getKanalName()) == true){
-    			if(cbchannels.getItemAt(index).equals(fd.getKanalName())){
-    	    		cbchannels.setSelectedIndex(index);
-    	    		System.out.println("Set channel to " + index);
-    			}
-    			index++;
-    			if(index == cbchannels.getItemCount()){
-    				cbchannels.setSelectedIndex(0);
-    			}
-    		}    		   			
-    	}
-    	
-    	slider.setValue(fd.getVolume());
-    	cbframebounds.setSelectedIndex(fd.getSeitenverhaeltnis());
+      //System.out.println("blb blo");
+      fd.readFromFile();
+      System.out.println(fd.getVolume());
+      
+      if(cbchannels.getItemAt(fd.getKanalAktuell()).toString().equals(fd.getKanalName())){
+        if (fd.getKanalAktuell() == 0) {
+          myTvElectronics.setChannel(channellist.get(0).getKanal(), false);
+        }else{
+          cbchannels.setSelectedIndex(fd.getKanalAktuell());
+        }
+        System.out.println("Set channel to " + fd.getKanalAktuell());
+      }else{
+        int index = 0;
+        while(index < cbchannels.getItemCount() || cbchannels.getItemAt(index).toString().equals(fd.getKanalName()) == true){
+          if(cbchannels.getItemAt(index).equals(fd.getKanalName())){
+            cbchannels.setSelectedIndex(index);
+            System.out.println("Set channel to " + index);
+          }
+          index++;
+          if(index == cbchannels.getItemCount() || index == 0){
+            myTvElectronics.setChannel(channellist.get(0).getKanal(), false);
+          }
+        }               
+      }
+      
+      slider.setValue(fd.getVolume());
+      cbframebounds.setSelectedIndex(fd.getSeitenverhaeltnis());
     }catch(Exception e){
-    	System.err.println(e);
+      System.err.println(e);
     }
     frame.addWindowListener(new WindowAdapter() {
-    	@Override
-    	public void windowClosing(WindowEvent arg0) {
-    		try{
-    		saveData();
-    		}catch(Exception e){
-    			System.err.println(e);
-    		}
-    	}
+      @Override
+      public void windowClosing(WindowEvent arg0) {
+        try{
+          saveData();
+        }catch(Exception e){
+          System.err.println(e);
+        }
+      }
     });
-
+    
     
     
   }
   
   private void saveData(){
-	  fd.setKanalAktuell(cbchannels.getSelectedIndex());
-	  fd.setKanalAnzahl(cbchannels.getComponentCount());
-	  fd.setKanalName(cbchannels.getSelectedItem().toString());
-	  fd.setSeitenverhaeltnis(cbframebounds.getSelectedIndex());
-	  fd.setVolume(slider.getValue());
-	  fd.saveAsFile();
+    fd.setKanalAktuell(cbchannels.getSelectedIndex());
+    fd.setKanalAnzahl(cbchannels.getComponentCount());
+    fd.setKanalName(cbchannels.getSelectedItem().toString());
+    fd.setSeitenverhaeltnis(cbframebounds.getSelectedIndex());
+    fd.setVolume(slider.getValue());
+    fd.saveAsFile();
   }
   
 }

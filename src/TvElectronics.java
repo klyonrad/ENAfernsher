@@ -25,7 +25,7 @@ public class TvElectronics {
   protected JPanel mainDisplay;
   protected JPanel pipDisplay;
   protected JLabel mainDisplayLabel;
- // protected JLabel pipDisplayLabe;
+  // protected JLabel pipDisplayLabe;
   private boolean isRecording;    // der TimeShift-Recorder nimmt momentan auf
   private long recordingStartTime;  // zu diesem Zeitpunkt hat die TimeShift-Aufnahme begonnen (in Sekunden seit 1.1.1970)
   
@@ -45,7 +45,7 @@ public class TvElectronics {
   }
   
   TvElectronics(){
-    System.out.println("bin da");
+    //System.out.println("bin da");
   }
   
   /**
@@ -90,6 +90,28 @@ public class TvElectronics {
       channels.add(tmp);
     } // end of for
     
+    String programm1, programm2;
+    int quali1, quali2;
+    int size = channels.size();
+    for (int i = 0; i < channels.size(); i++) {
+      programm1 = channels.get(i).getProgramm();
+      //quali1 = channels.get(i).getQualitaet();
+      for (int j = i + 1; j < channels.size(); j++) {
+        programm2 = channels.get(j).getProgramm();
+        //quali2 = channels.get(j).getQualitaet();
+        if (programm1.equalsIgnoreCase(programm2)) {
+          quali1 = channels.get(i).getQualitaet();
+          quali2 = channels.get(j).getQualitaet();
+          if (quali1 < quali2) {
+            channels.remove(i);
+            j--;
+          }else{
+            channels.remove(j);
+            j--;
+          }// end of if
+        } // end of if
+      } // end of for
+    } // end of for
     System.out.println("All channels scanned");
     return channels;
   }
@@ -150,44 +172,44 @@ public class TvElectronics {
     // TO DO (Aufgabe 4): Vergrößern Sie hier das aktuelle Bild des Main-Display, abhängig von "on"!
     if (on == true) {
       double zoomLevel = 1.33;
-    
+      
       try {
-      Image originalImage = icon.getImage();      
-      int imageWidth = originalImage.getWidth(mainDisplayLabel);
-      int imageHeight = originalImage.getHeight(mainDisplayLabel);
-    
-      int newImageWidth = (int) (imageWidth * zoomLevel);    
-      int newImageHeight = (int) (imageHeight * zoomLevel);
-  
-      Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
-      
-      mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
-      
+        Image originalImage = icon.getImage();      
+        int imageWidth = originalImage.getWidth(mainDisplayLabel);
+        int imageHeight = originalImage.getHeight(mainDisplayLabel);
+        
+        int newImageWidth = (int) (imageWidth * zoomLevel);    
+        int newImageHeight = (int) (imageHeight * zoomLevel);
+        
+        Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+        
+        mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
+        
       } catch (Exception ex)  {
-            // TODO Auto-generated catch block
-            ex.printStackTrace();
-          }
+        // TODO Auto-generated catch block
+        ex.printStackTrace();
+      }
     }
     
-      else if (on == false) {
-          double zoomLevel2 = 1.33;
-        
-          try {
-          Image originalImage = icon.getImage();      
-          int imageWidth = originalImage.getWidth(mainDisplayLabel);
-          int imageHeight = originalImage.getHeight(mainDisplayLabel);
-        
-          int newImageWidth = (int) (imageWidth / zoomLevel2);    
-          int newImageHeight = (int) (imageHeight / zoomLevel2);
+    else if (on == false) {
+      double zoomLevel2 = 1.33;
       
-          Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
-          
-          mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
-          
-          } catch (Exception ex)  {
-                // TODO Auto-generated catch block
-                ex.printStackTrace();
-              }    
+      try {
+        Image originalImage = icon.getImage();      
+        int imageWidth = originalImage.getWidth(mainDisplayLabel);
+        int imageHeight = originalImage.getHeight(mainDisplayLabel);
+        
+        int newImageWidth = (int) (imageWidth / zoomLevel2);    
+        int newImageHeight = (int) (imageHeight / zoomLevel2);
+        
+        Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+        
+        mainDisplayLabel.setIcon(new ImageIcon (resizedImage));
+        
+      } catch (Exception ex)  {
+        // TODO Auto-generated catch block
+        ex.printStackTrace();
+      }    
     }    
     
   }
@@ -201,7 +223,28 @@ public class TvElectronics {
     System.out.println("PiP = " + (show ? "visible" : "hidden"));   
     
     // TO DO (Aufgabe 4): Machen Sie hier this.pipDisplay sichtbar bzw. unsichtbar!
+    /*Das Bild aus dem Hauptbildschirm muss an die größe des PIP feldes Angepasst werden*/
+    ImageIcon icon = (ImageIcon) mainDisplayLabel.getIcon();
+    try {
+      Image originalImage = icon.getImage();      
+      int imageWidth = originalImage.getWidth(mainDisplayLabel);
+      int imageHeight = originalImage.getHeight(mainDisplayLabel);
+      
+      int newImageWidth = (int) (this.pipDisplay.getComponent(0).getWidth());    
+      int newImageHeight = (int) (this.pipDisplay.getComponent(0).getHeight());
+      
+      Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
+      JLabel lblPip = (JLabel) this.pipDisplay.getComponent(0);
+      lblPip.setIcon(new ImageIcon (resizedImage));
+      
+    } catch (Exception ex)  {
+      // TODO Auto-generated catch block
+      ex.printStackTrace();
+    }
+    
     this.pipDisplay.setVisible(show);
+    this.pipDisplay.getComponent(0).setVisible(show);
+    
   }
   
   /**
@@ -258,7 +301,7 @@ public class TvElectronics {
       tvEl.setChannel("54d", true);
       tvEl.setPictureInPicture(true);
       tvEl.setVolume(47);
-     // tvEl.setZoom(true);
+      // tvEl.setZoom(true);
       tvEl.recordTimeShift(true);
       while (tvEl.recordingStartTime + 3 > tvEl.now())
       ; // provisorische Warteschleife (Thread wäre ordentlicher)
