@@ -20,6 +20,7 @@ public class MainWindow {
 	private JPanel viewArea;
 	private JPanel pipPanel;
 	private JPanel pbtoverlay;
+	private JPanel settingsPanel;
 
 	private TvElectronics myTvElectronics;
 	private ArrayList<kanal> channellist;
@@ -30,6 +31,7 @@ public class MainWindow {
 	private JSlider slider;
 	private String deselectedFramebound;
 	private long timeStart;
+	private boolean settingsButtonPressed;
 
 	/**
 	 * Launch the application.
@@ -64,7 +66,6 @@ public class MainWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		
 
 		pbtoverlay = new JPanel();
 
@@ -104,6 +105,28 @@ public class MainWindow {
 		pnlViewArea.setBounds(10, 11, 1294, 720);
 		frame.getContentPane().add(pnlViewArea);
 		pnlViewArea.setLayout(null);
+
+		settingsPanel = new JPanel();
+		settingsPanel.setBorder(UIManager.getBorder("OptionPane.border"));
+		settingsPanel.setBackground(Color.ORANGE);
+		settingsPanel.setBounds(368, 244, 492, 253);
+		pnlViewArea.add(settingsPanel);
+		GridBagLayout gbl_settingsPanel = new GridBagLayout();
+		gbl_settingsPanel.columnWidths = new int[] { 214, 63, 0 };
+		gbl_settingsPanel.rowHeights = new int[] { 23, 0 };
+		gbl_settingsPanel.columnWeights = new double[] { 0.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_settingsPanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		settingsPanel.setLayout(gbl_settingsPanel);
+		settingsPanel.setVisible(false);
+		settingsButtonPressed = false;
+
+		JButton btnBlaBla = new JButton("bla bla");
+		GridBagConstraints gbc_btnBlaBla = new GridBagConstraints();
+		gbc_btnBlaBla.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnBlaBla.gridx = 1;
+		gbc_btnBlaBla.gridy = 0;
+		settingsPanel.add(btnBlaBla, gbc_btnBlaBla);
 
 		final JLabel lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
 		lblViewArea.setBounds(0, 0, 1294, 720);
@@ -146,6 +169,7 @@ public class MainWindow {
 		pbtoverlay.add(slider);
 
 		final JButton btoption = new JButton("Settings");
+
 		btoption.setBounds(81, 47, 89, 23);
 		pbtoverlay.add(btoption);
 
@@ -316,6 +340,17 @@ public class MainWindow {
 			}
 		});
 
+		btoption.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (settingsButtonPressed == false)
+					settingsPanel.setVisible(true);
+				else if (settingsButtonPressed == true)
+					settingsPanel.setVisible(false);
+				settingsButtonPressed = !settingsButtonPressed;
+			}
+		});
+
 		// load & save data:
 		fd = new Fehrnseher_Daten();
 
@@ -355,7 +390,7 @@ public class MainWindow {
 		} catch (Exception e) {
 			System.err.println(e);
 		}
-		
+
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
@@ -377,5 +412,4 @@ public class MainWindow {
 		fd.setVolume(slider.getValue());
 		fd.saveAsFile();
 	}
-
 }
