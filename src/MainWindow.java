@@ -67,39 +67,8 @@ public class MainWindow {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
-		pbtoverlay = new JPanel();
-
-		/* Event handlers for the overlay: */
-		pbtoverlay.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				pbtoverlay.setVisible(true);
-			}
-		});
-		pbtoverlay.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				pbtoverlay.setVisible(true);
-			}
-		});
-
-		frame.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				pbtoverlay.setVisible(true);
-			}
-		});
-		frame.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				pbtoverlay.setVisible(false);
-			}
-		});
-
-		pbtoverlay.setBounds(495, 509, 256, 183);
-		frame.getContentPane().add(pbtoverlay);
-		pbtoverlay.setBackground(Color.green);
-		pbtoverlay.setLayout(null);
+		initializeOverlay();
+		
 
 		JPanel pnlViewArea = new JPanel();
 		pnlViewArea.setBounds(10, 11, 1294, 720);
@@ -437,5 +406,40 @@ public class MainWindow {
 		}
 		cbchannels.setSelectedItem(currentProgramm);
 		saveData();
+	}
+	
+	private void initializeOverlay() {
+		pbtoverlay = new JPanel();
+		/* Event handlers for the overlay: */
+		pbtoverlay.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				pbtoverlay.setVisible(true);
+			}
+		});
+		pbtoverlay.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				pbtoverlay.setVisible(true);
+			}
+		});
+
+		frame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				pbtoverlay.setVisible(true);
+			}
+		});
+		frame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				pbtoverlay.setVisible(false);
+			}
+		});
+
+		pbtoverlay.setBounds(495, 509, 256, 183);
+		frame.getContentPane().add(pbtoverlay);
+		pbtoverlay.setBackground(Color.green);
+		pbtoverlay.setLayout(null);
 	}
 }
