@@ -302,8 +302,8 @@ public class MainWindow {
 			@Override
 			public void stateChanged(ChangeEvent ce) {
 				try {
-					myTvElectronics.setVolume(((JSlider) ce.getSource())
-							.getValue());
+					myTvElectronics.setVolume(((JSlider) ce.getSource()).getValue());
+					fd.setVolume(slider.getValue());
 				} catch (Exception e) {
 					System.err.println(e);
 				}
@@ -349,7 +349,7 @@ public class MainWindow {
 			fd.readFromFile();
 			System.out.println(fd.getVolume());
 			channellist = fd.getChannellist();
-			this.setChannels(channellist); // BUG: at this point, volume gets reset to 20.
+			this.setChannels(channellist);
 
 			if (cbchannels.getItemAt(fd.getKanalAktuell()).toString()
 					.equals(fd.getKanalName())) {
@@ -385,15 +385,14 @@ public class MainWindow {
 		}
 	}
 
-	private void saveData() {
+	private void saveData() { // only use this, when UI is fully initialized (not at startup)
 		fd.setKanalAktuell(cbchannels.getSelectedIndex());
 		fd.setKanalAnzahl(cbchannels.getComponentCount());
 		fd.setKanalName(cbchannels.getSelectedItem().toString());
 		fd.setSeitenverhaeltnis(cbframebounds.getSelectedIndex());
 		fd.setVolume(slider.getValue());
 		fd.setChannellist(channellist);
-		fd.saveAsFile();
-		
+		fd.saveAsFile();		
 	}
 
 	/*
@@ -408,7 +407,9 @@ public class MainWindow {
 			cbchannels.addItem(channellist.get(i).getProgramm());
 		}
 		cbchannels.setSelectedItem(currentProgramm);
-		saveData();
+		// call this specifically so that other stuff is is not affected (sensitive at startup)
+		fd.setChannellist(channellist);
+		fd.saveAsFile();
 	}
 	
 	private void initializeOverlay() {
