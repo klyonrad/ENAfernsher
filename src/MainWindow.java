@@ -295,7 +295,7 @@ public class MainWindow {
 		btplaypause.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (btplaypause.getText() == "?") {
+				if (btplaypause.getText() == "▶") {
 					btplaypause.setText("||");
 					try {
 						myTvElectronics.playTimeShift(true,
@@ -305,7 +305,7 @@ public class MainWindow {
 						System.err.println(ex);
 					}
 				} else {
-					btplaypause.setText("?");
+					btplaypause.setText("▶");
 					try {
 						myTvElectronics.recordTimeShift(true);
 						timeStart = myTvElectronics.now();
@@ -399,11 +399,11 @@ public class MainWindow {
 		fd.setSeitenverhaeltnis(cbframebounds.getSelectedIndex());
 		fd.setVolume(slider.getValue());
 		fd.saveAsFile();
+		// TODO: channellist, because sorting
 	}
 
 	/*
-	 * Diese Funktion wird vom SortChannels aufgerufen und muss dann die combobox
-	 * erneuern.
+	 * Diese Funktion wird vom SortChannels aufgerufen und muss dann die combobox erneuern.
 	 */
 	public void setChannels(ArrayList<kanal> newChannels) {
 		/*
@@ -415,5 +415,6 @@ public class MainWindow {
 		for (int i = 0; i < channellist.size(); i++) {
 			cbchannels.addItem(channellist.get(i).getProgramm());
 		}
+		saveData();
 	}
 }
