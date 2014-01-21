@@ -6,7 +6,7 @@ import java.util.*;
 import java.lang.*;
 
 public class SortChannels {
-	// Anfang Attribute
+	// attributes:
 	private JFrame SortChannels = new JFrame();
 	private JList<String> jList1 = new JList();
 	private DefaultListModel jList1Model = new DefaultListModel();
@@ -18,13 +18,11 @@ public class SortChannels {
 	private Dimension buttonDimension = new Dimension();
 	private ArrayList<kanal> channels;
 
-	private TvElectronics myTvElectronics;
+	private MainWindow myMainWindow;
 
-	// Ende Attribute
-
-	public SortChannels(ArrayList<kanal> channels, TvElectronics theTvElectro, MainWindow theMainWindow) {
+	public SortChannels(ArrayList<kanal> channels, MainWindow theMainWindow) {
 		this.channels = channels;
-		this.myTvElectronics = theTvElectro;
+		this.myMainWindow = theMainWindow;
 
 		SortChannels.setTitle("Sendersortierung");
 		SortChannels.addWindowListener(new WindowAdapter() {
@@ -116,7 +114,7 @@ public class SortChannels {
 		jList1.setModel(listModel);
 	}
 
-	public void btup_ActionPerformed(ActionEvent evt) {		
+	public void btup_ActionPerformed(ActionEvent evt) {
 		try {
 			kanal oben;
 			DefaultListModel listModel = (DefaultListModel) jList1.getModel();
@@ -141,9 +139,7 @@ public class SortChannels {
 	} // end of btup_ActionPerformed
 
 	public void btok_ActionPerformed(ActionEvent evt) {
-		// TODO hier Quelltext einfügen
-	//	myTvElectronics.setChannels(channels); // ###################### das wird das
-									// MainWindow
+		myMainWindow.setChannels(channels); 
 		SortChannels.dispose();
 	} // end of btok_ActionPerformed
 
@@ -173,9 +169,8 @@ public class SortChannels {
 	} // end of btdown_ActionPerformed
 
 	// Ende Methoden
-/*
-	public static void main(String[] args) {
-		TvElectronics tv = new TvElectronics();
-		new SortChannels(tv.scanChannels(), tv);
-	} */
+	/*
+	 * public static void main(String[] args) { TvElectronics tv = new
+	 * TvElectronics(); new SortChannels(tv.scanChannels(), tv); }
+	 */
 }

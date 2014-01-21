@@ -111,24 +111,12 @@ public class MainWindow {
 		settingsPanel.setBackground(Color.ORANGE);
 		settingsPanel.setBounds(368, 244, 492, 253);
 		pnlViewArea.add(settingsPanel);
-		GridBagLayout gbl_settingsPanel = new GridBagLayout();
-		gbl_settingsPanel.columnWidths = new int[] { 214, 63, 0 };
-		gbl_settingsPanel.rowHeights = new int[] { 23, 0, 0, 0, 0 };
-		gbl_settingsPanel.columnWeights = new double[] { 0.0, 0.0,
-				Double.MIN_VALUE };
-		gbl_settingsPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		settingsPanel.setLayout(gbl_settingsPanel);
 		settingsPanel.setVisible(false);
 		settingsButtonPressed = false;
+		settingsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnBlaBla = new JButton("bla bla");
-		GridBagConstraints gbc_btnBlaBla = new GridBagConstraints();
-		gbc_btnBlaBla.gridheight = 3;
-		gbc_btnBlaBla.insets = new Insets(0, 0, 0, 5);
-		gbc_btnBlaBla.gridx = 0;
-		gbc_btnBlaBla.gridy = 1;
-		settingsPanel.add(btnBlaBla, gbc_btnBlaBla);
+		settingsPanel.add(btnBlaBla);
 
 		final JLabel lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
 		lblViewArea.setBounds(0, 0, 1294, 720);
@@ -151,11 +139,11 @@ public class MainWindow {
 		myTvElectronics = new TvElectronics(pnlViewArea, pipPanel, lblViewArea);
 		channellist = myTvElectronics.scanChannels();
 
-		JButton btchannelup = new JButton("?");
+		JButton btchannelup = new JButton("↑");
 		btchannelup.setBounds(10, 81, 89, 23);
 		pbtoverlay.add(btchannelup);
 
-		JButton btchanneldown = new JButton("?");
+		JButton btchanneldown = new JButton("↑");
 		btchanneldown.setBounds(10, 149, 89, 23);
 		pbtoverlay.add(btchanneldown);
 
