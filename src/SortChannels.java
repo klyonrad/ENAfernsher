@@ -108,7 +108,7 @@ public class SortChannels {
 
 	public void insertInList() {
 		DefaultListModel listModel = new DefaultListModel();
-		for (int i = channels.size() - 1; i >= 0; i--) {
+		for (int i = 0; i < channels.size(); i++) {
 			listModel.addElement(channels.get(i).getProgramm());
 		} // end of for
 		jList1.setModel(listModel);

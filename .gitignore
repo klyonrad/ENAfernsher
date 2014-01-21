@@ -1,6 +1,12 @@
 *.class
 FehrnseherDaten.csv
 FernseherDaten.csv
+*/FernseherDaten.csv
+*/*/FernseherDaten.csv
+src/FernseherDaten.csv
+*FernseherDaten.csv
+#### FOR FUCKS SACKE JUST IGNORE THAT GODDAMN FILE YOU STUPID FUCKING GIT
+##### I give up.
 
 #################
 ## Eclipse
