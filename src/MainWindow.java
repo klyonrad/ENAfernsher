@@ -115,8 +115,17 @@ public class MainWindow {
 		settingsButtonPressed = false;
 		settingsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JButton btnBlaBla = new JButton("bla bla");
-		settingsPanel.add(btnBlaBla);
+		final MainWindow self = this; // ugly workaround, so that we can reference our GodObject in the event handler
+		
+		JButton btnSortChannellist = new JButton("SenderListe Sortieren");
+		btnSortChannellist.addMouseListener(new MouseAdapter() {
+			@Override
+			
+			public void mouseClicked(MouseEvent arg0) {
+				SortChannels mySortChannels = new SortChannels(channellist, self); // self instead of this....
+			}
+		});
+		settingsPanel.add(btnSortChannellist);
 
 		final JLabel lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
 		lblViewArea.setBounds(0, 0, 1294, 720);

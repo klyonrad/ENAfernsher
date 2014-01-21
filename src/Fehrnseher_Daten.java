@@ -17,6 +17,7 @@ public class Fehrnseher_Daten {
   private int kanalAktuell;
   private int seitenverhaeltnis;
   private int volume;
+  private ArrayList<kanal> channellist;
   // Ende Attribute
   
   public Fehrnseher_Daten() {
@@ -82,7 +83,15 @@ public class Fehrnseher_Daten {
     this.volume = volume;
   }
   
-  public void saveAsFile() {
+  public ArrayList<kanal> getChannellist() {
+	return channellist;
+}
+
+public void setChannellist(ArrayList<kanal> channellist) {
+	this.channellist = channellist;
+}
+
+public void saveAsFile() {
     //TO DO hier müssen wir noch was machen ########################################################################
     int CONTENTCOUNT = 5;
     String[] content = new String[CONTENTCOUNT];
