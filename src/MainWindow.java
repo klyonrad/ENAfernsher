@@ -29,6 +29,8 @@ public class MainWindow {
 	private JComboBox cbchannels;
 	private JComboBox cbframebounds;
 	private JSlider slider;
+	private JPanel pnlViewArea;
+	private JLabel lblViewArea;
 	private String deselectedFramebound;
 	private long timeStart;
 	private boolean settingsButtonPressed;
@@ -70,10 +72,15 @@ public class MainWindow {
 		initializeOverlay();
 		
 
-		JPanel pnlViewArea = new JPanel();
+		pnlViewArea = new JPanel();
 		pnlViewArea.setBounds(10, 11, 1294, 720);
 		frame.getContentPane().add(pnlViewArea);
 		pnlViewArea.setLayout(null);
+		
+		lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
+		lblViewArea.setBounds(0, 0, 1294, 720);
+		pnlViewArea.add(lblViewArea);
+		lblViewArea.setIcon(new ImageIcon(MainWindow.class.getResource("/images/downformaintenance.png")));
 
 		settingsPanel = new JPanel();
 		settingsPanel.setBorder(UIManager.getBorder("OptionPane.border"));
@@ -96,11 +103,7 @@ public class MainWindow {
 		});
 		settingsPanel.add(btnSortChannellist);
 
-		final JLabel lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
-		lblViewArea.setBounds(0, 0, 1294, 720);
-		pnlViewArea.add(lblViewArea);
-		lblViewArea.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/images/downformaintenance.png")));
+
 
 		final JPanel pipPanel = new JPanel();
 		pipPanel.setBounds(953, 11, 351, 241);
@@ -346,7 +349,7 @@ public class MainWindow {
 			fd.readFromFile();
 			System.out.println(fd.getVolume());
 			channellist = fd.getChannellist();
-			this.setChannels(channellist);
+			this.setChannels(channellist); // BUG: at this point, volume gets reset to 20.
 
 			if (cbchannels.getItemAt(fd.getKanalAktuell()).toString()
 					.equals(fd.getKanalName())) {
