@@ -71,16 +71,8 @@ public class MainWindow {
 
 		initializeOverlay();
 		
+		initializeViewArea();
 
-		pnlViewArea = new JPanel();
-		pnlViewArea.setBounds(10, 11, 1294, 720);
-		frame.getContentPane().add(pnlViewArea);
-		pnlViewArea.setLayout(null);
-		
-		lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
-		lblViewArea.setBounds(0, 0, 1294, 720);
-		pnlViewArea.add(lblViewArea);
-		lblViewArea.setIcon(new ImageIcon(MainWindow.class.getResource("/images/downformaintenance.png")));
 
 		settingsPanel = new JPanel();
 		settingsPanel.setBorder(UIManager.getBorder("OptionPane.border"));
@@ -445,5 +437,19 @@ public class MainWindow {
 		frame.getContentPane().add(pbtoverlay);
 		pbtoverlay.setBackground(Color.green);
 		pbtoverlay.setLayout(null);
+	}
+	
+	
+	
+	private void initializeViewArea() {
+		pnlViewArea = new JPanel();
+		pnlViewArea.setBounds(10, 11, 1294, 720);
+		frame.getContentPane().add(pnlViewArea);
+		pnlViewArea.setLayout(null);
+		
+		lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
+		lblViewArea.setBounds(0, 0, 1294, 720);
+		pnlViewArea.add(lblViewArea);
+		lblViewArea.setIcon(new ImageIcon(MainWindow.class.getResource("/images/downformaintenance.png")));
 	}
 }
