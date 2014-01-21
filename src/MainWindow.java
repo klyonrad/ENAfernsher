@@ -70,7 +70,7 @@ public class MainWindow {
 		initializeOverlay();
 		
 
-		JPanel pnlViewArea = new JPanel();
+		JPanel pnlViewArea = new JPanel(); // apparently adding the settingsPanel doesn't work when the ViewArea is a class attribute
 		pnlViewArea.setBounds(10, 11, 1294, 720);
 		frame.getContentPane().add(pnlViewArea);
 		pnlViewArea.setLayout(null);
@@ -78,13 +78,13 @@ public class MainWindow {
 		settingsPanel = new JPanel();
 		settingsPanel.setBorder(UIManager.getBorder("OptionPane.border"));
 		settingsPanel.setBackground(Color.ORANGE);
-		settingsPanel.setBounds(368, 244, 492, 253);
+		settingsPanel.setBounds(485, 334, 256, 163);
 		pnlViewArea.add(settingsPanel);
 		settingsPanel.setVisible(false);
 		settingsButtonPressed = false;
 		settingsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		final MainWindow self = this; // ugly workaround, so that we can reference our GodObject in the event handler
+		final MainWindow self = this; // ugly workaround, so that we can reference our GodObject in the event handlers
 		
 		JButton btnSortChannellist = new JButton("SenderListe Sortieren");
 		btnSortChannellist.addMouseListener(new MouseAdapter() {
@@ -94,6 +94,16 @@ public class MainWindow {
 				SortChannels mySortChannels = new SortChannels(channellist, self); // self instead of this....
 			}
 		});
+		
+		JButton btnKanalscan = new JButton("Kanalscan");
+		btnKanalscan.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				channellist = myTvElectronics.scanChannels();
+				setChannels(channellist);
+			}
+		});
+		settingsPanel.add(btnKanalscan);
 		settingsPanel.add(btnSortChannellist);
 
 		final JLabel lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
