@@ -352,6 +352,22 @@ public class MainWindow {
 		// load & save data:
 		fd = new Fehrnseher_Daten();
 
+		loadData();
+
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				try {
+					saveData();
+				} catch (Exception e) {
+					System.err.println(e);
+				}
+			}
+		});
+
+	}
+	
+	private void loadData() {
 		try {
 			fd.readFromFile();
 			System.out.println(fd.getVolume());
@@ -387,18 +403,6 @@ public class MainWindow {
 		} catch (Exception e) {
 			System.err.println(e);
 		}
-
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent arg0) {
-				try {
-					saveData();
-				} catch (Exception e) {
-					System.err.println(e);
-				}
-			}
-		});
-
 	}
 
 	private void saveData() {
@@ -415,15 +419,14 @@ public class MainWindow {
 	 * Diese Funktion wird vom SortChannels aufgerufen und muss dann die combobox erneuern.
 	 */
 	public void setChannels(ArrayList<kanal> newChannels) {
-		/*
-		 * for (int i = 0; i < blub.size() - 1; i++) {
-		 * System.out.println(blub.get(i).getProgramm()); } // end of for
-		 */
+		String currentProgramm = (String) cbchannels.getSelectedItem();
+		
 		channellist = newChannels;
 		cbchannels.removeAllItems();
 		for (int i = 0; i < channellist.size(); i++) {
 			cbchannels.addItem(channellist.get(i).getProgramm());
 		}
-		saveData();
+		cbchannels.setSelectedItem(currentProgramm);
+		//saveData();
 	}
 }
