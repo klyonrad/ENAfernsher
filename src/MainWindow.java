@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import java.util.*;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.border.LineBorder;
@@ -350,7 +350,12 @@ public class MainWindow {
 		});
 
 		// load & save data:
-		fd = new Fehrnseher_Daten();
+		try {
+			fd = new Fehrnseher_Daten();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		loadData();
 
@@ -371,6 +376,8 @@ public class MainWindow {
 		try {
 			fd.readFromFile();
 			System.out.println(fd.getVolume());
+			channellist = fd.getChannellist();
+			this.setChannels(channellist);
 
 			if (cbchannels.getItemAt(fd.getKanalAktuell()).toString()
 					.equals(fd.getKanalName())) {
@@ -402,6 +409,7 @@ public class MainWindow {
 			cbframebounds.setSelectedIndex(fd.getSeitenverhaeltnis());
 		} catch (Exception e) {
 			System.err.println(e);
+			e.printStackTrace();
 		}
 	}
 
@@ -411,8 +419,9 @@ public class MainWindow {
 		fd.setKanalName(cbchannels.getSelectedItem().toString());
 		fd.setSeitenverhaeltnis(cbframebounds.getSelectedIndex());
 		fd.setVolume(slider.getValue());
+		fd.setChannellist(channellist);
 		fd.saveAsFile();
-		// TODO: channellist, because sorting
+		
 	}
 
 	/*
@@ -427,6 +436,6 @@ public class MainWindow {
 			cbchannels.addItem(channellist.get(i).getProgramm());
 		}
 		cbchannels.setSelectedItem(currentProgramm);
-		//saveData();
+		saveData();
 	}
 }

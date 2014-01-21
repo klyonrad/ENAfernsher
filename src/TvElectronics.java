@@ -30,10 +30,10 @@ public class TvElectronics {
   private long recordingStartTime;  // zu diesem Zeitpunkt hat die TimeShift-Aufnahme begonnen (in Sekunden seit 1.1.1970)
   
   /**
-  * Der Konstruktur übernimmt Referenzen auf die beiden JPanel-Objekte, die die Displays repräsentieren.
+  * Der Konstruktur uebernimmt Referenzen auf die beiden JPanel-Objekte, die die Displays repraesentieren.
   * 
-  * @param mainDisplay   dieses Panel repräsentiert das Haupt-Display
-  * @param pipDisplay    dieses Panel repräsentiert das PictureInPicture-Display
+  * @param mainDisplay   dieses Panel repraesentiert das Haupt-Display
+  * @param pipDisplay    dieses Panel repraesentiert das PictureInPicture-Display
   */
   TvElectronics(JPanel mainDisplay, JPanel pipDisplay, JLabel mainDisplayLabel) { // add the JLabel, because otherwise it would be annoying to access the images
     this.mainDisplay = mainDisplay;
@@ -58,7 +58,7 @@ public class TvElectronics {
   }
   
   /**
-  * Führt den Kanalscan aus und liefert die verfügbaren Kanäle.
+  * fuehrt den kanalscan aus und liefert die verfuegbaren kanaele
   * 
   * @return    die Daten aus Kanalscan.csv
   */
@@ -117,11 +117,11 @@ public class TvElectronics {
   }
   
   /**
-  * Wählt einen Kanal für die Wiedergabe aus.
+  * sets channel
   * 
   * @param channel       Kanalnummer als Zahl im Bereich 1..99 gefolgt von einem Buchstaben a..d (vgl. Kanalscan.csv)
   * @param forPiP        true: Wiedergabe im PictureInPicture-Display; false: Wiedergabe im Haupt-Display
-  * @throws Exception    wenn der Wert von "channel" nicht gültig ist
+  * @throws Exception    wenn der Wert von "channel" nicht gueltig ist
   */
   public void setChannel(String channel, boolean forPiP) throws Exception {
     String errmsg = "Illegal format for channel: " + channel;
@@ -137,7 +137,7 @@ public class TvElectronics {
     throw new Exception(errmsg);
     System.out.println((forPiP ? "PiP" : "Main") + " channel = " + channel);
     
-    // TO DO (Aufgabe 4): Schalten Sie hier verschiedene statische Bilder für die verschiedenen Kanäle 
+    // TO DO (Aufgabe 4): Schalten Sie hier verschiedene statische Bilder fuer die verschiedenen Kanaele 
     //        im jeweiligen Display!
     //        Die meisten Bilder sollen im Format 16:9 sein, ein paar auch in 4:3 und in 2,35:1
     
@@ -147,10 +147,10 @@ public class TvElectronics {
   }
   
   /**
-  * Stellt die Lautstärke des Fernsehers ein.
+  * Stellt die Lautstaerke des Fernsehers ein.
   * 
-  * @param volume        Einstellwert für die Lautstärke im Bereich 0..100 (0 = aus, 100 = volle Lautstärke)
-  * @throws Exception    wenn der Wert von "volume" außerhalb des zulässigen Bereichs ist
+  * @param volume        Einstellwert fuer die Lautstaerke im Bereich 0..100 (0 = aus, 100 = volle Lautstaerke)
+  * @throws Exception    wenn der Wert von "volume" ausserhalb des zulaessigen Bereichs ist
   */
   public void setVolume(int volume) throws Exception {
     if (volume < 0 || volume > 100)
@@ -159,17 +159,17 @@ public class TvElectronics {
   }
   
   /**
-  * Vergrößert bei Aktivierung das aktuelle Bild des Main-Display auf 133% und stellt es zentriert dar, 
-  * d.h. die Ränder des vergrößerten Bildes werden abgeschnitten. 
+  * Vergroessert bei Aktivierung das aktuelle Bild des Main-Display auf 133% und stellt es zentriert dar, 
+  * d.h. die Raender des vergroesserten Bildes werden abgeschnitten. 
   * Dadurch verschwinden die schwarzen Balken rechts und links bei 4:3 Sendungen, 
   * bzw. die schwarzen Balken oben und unten bei Cinemascope Filmen.
   * 
-  * @param on    true: Vergrößerung auf 133%; false: Normalgröße 100%
+  * @param on    true: Vergroesserung auf 133%; false: Normalgroesse 100%
   */
   public void setZoom(boolean on) {
     System.out.println("Zoom = " + (on ? "133%" : "100%"));   
     ImageIcon icon = (ImageIcon) mainDisplayLabel.getIcon();
-    // TO DO (Aufgabe 4): Vergrößern Sie hier das aktuelle Bild des Main-Display, abhängig von "on"!
+    // TO DO (Aufgabe 4): Vergroessern Sie hier das aktuelle Bild des Main-Display, abhaengig von "on"!
     if (on == true) {
       double zoomLevel = 1.33;
       
@@ -223,7 +223,7 @@ public class TvElectronics {
     System.out.println("PiP = " + (show ? "visible" : "hidden"));   
     
     // TO DO (Aufgabe 4): Machen Sie hier this.pipDisplay sichtbar bzw. unsichtbar!
-    /*Das Bild aus dem Hauptbildschirm muss an die größe des PIP feldes Angepasst werden*/
+    /*Das Bild aus dem Hauptbildschirm muss an die groesse des PIP feldes Angepasst werden*/
     ImageIcon icon = (ImageIcon) mainDisplayLabel.getIcon();
     try {
       Image originalImage = icon.getImage();      
@@ -268,8 +268,8 @@ public class TvElectronics {
   * Startet die Wiedergabe vom TimeShift-Recorder bzw. beendet sie wieder.
   * 
   * @param start         true: Start; false: Stopp
-  * @param offset        der Zeitversatz gegenüber der Aufnahme in Sekunden (>0 und nur relevant bei Start=true)
-  * @throws Exception    wenn keine Aufzeichnung läuft oder noch nicht genug gepuffert ist
+  * @param offset        der Zeitversatz gegenueber der Aufnahme in Sekunden (>0 und nur relevant bei Start=true)
+  * @throws Exception    wenn keine Aufzeichnung laeuft oder noch nicht genug gepuffert ist
   */
   public void playTimeShift(boolean start, int offset) throws Exception {
     if (start && offset <= 0)
@@ -287,7 +287,7 @@ public class TvElectronics {
   
   //======================================================================================================
   /**
-  * Testumgebung mit Aufrufbeispielen für die nicht-statischen Methoden der Klasse.
+  * Testumgebung mit Aufrufbeispielen fuer die nicht-statischen Methoden der Klasse.
   * Diese Testumgebung wird im Fernseher nicht aufgerufen.
   * 
   * @param args    Aufrufparameter werden ignoriert
@@ -304,7 +304,7 @@ public class TvElectronics {
       // tvEl.setZoom(true);
       tvEl.recordTimeShift(true);
       while (tvEl.recordingStartTime + 3 > tvEl.now())
-      ; // provisorische Warteschleife (Thread wäre ordentlicher)
+      ; // provisorische Warteschleife (Thread waere ordentlicher)
       tvEl.playTimeShift(true, 2);
       tvEl.playTimeShift(false, 0);
       tvEl.playTimeShift(true, 3);
