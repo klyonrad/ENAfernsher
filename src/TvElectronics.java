@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+﻿import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -221,7 +221,6 @@ public class TvElectronics {
   */
   public void setPictureInPicture(boolean show) {
     System.out.println("PiP = " + (show ? "visible" : "hidden"));   
-    
     // TO DO (Aufgabe 4): Machen Sie hier this.pipDisplay sichtbar bzw. unsichtbar!
     /*Das Bild aus dem Hauptbildschirm muss an die groesse des PIP feldes Angepasst werden*/
     ImageIcon icon = (ImageIcon) mainDisplayLabel.getIcon();
@@ -230,8 +229,8 @@ public class TvElectronics {
       int imageWidth = originalImage.getWidth(mainDisplayLabel);
       int imageHeight = originalImage.getHeight(mainDisplayLabel);
       
-      int newImageWidth = (int) (this.pipDisplay.getComponent(0).getWidth());    
-      int newImageHeight = (int) (this.pipDisplay.getComponent(0).getHeight());
+      int newImageWidth = (int) (350);    
+      int newImageHeight = (int) (240);//this.pipDisplay.getComponent(0).getHeight());
       
       Image resizedImage = originalImage.getScaledInstance(newImageWidth, newImageHeight, 4);
       JLabel lblPip = (JLabel) this.pipDisplay.getComponent(0);
@@ -242,7 +241,6 @@ public class TvElectronics {
     }
     
     this.pipDisplay.setVisible(show);
-    this.pipDisplay.getComponent(0).setVisible(show);
     
   }
   
@@ -282,36 +280,4 @@ public class TvElectronics {
   }
   
   
-  
-  
-  //======================================================================================================
-  /**
-  * Testumgebung mit Aufrufbeispielen fuer die nicht-statischen Methoden der Klasse.
-  * Diese Testumgebung wird im Fernseher nicht aufgerufen.
-  * 
-  * @param args    Aufrufparameter werden ignoriert
-  */
-  public static void main(String[] args) {
-    try {
-      TvElectronics tvEl = new TvElectronics(new JPanel(), new JPanel(), new JLabel());
-      
-      ArrayList<kanal> channels = tvEl.scanChannels();
-      tvEl.setChannel("37a", false);
-      tvEl.setChannel("54d", true);
-      tvEl.setPictureInPicture(true);
-      tvEl.setVolume(47);
-      // tvEl.setZoom(true);
-      tvEl.recordTimeShift(true);
-      while (tvEl.recordingStartTime + 3 > tvEl.now())
-      ; // provisorische Warteschleife (Thread waere ordentlicher)
-      tvEl.playTimeShift(true, 2);
-      tvEl.playTimeShift(false, 0);
-      tvEl.playTimeShift(true, 3);
-      tvEl.recordTimeShift(false);
-    } 
-    catch (Exception e) {
-      System.out.println("ERROR: " + e.getMessage());
-    }
-    
-  }
 }
