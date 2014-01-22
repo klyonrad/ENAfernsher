@@ -238,7 +238,6 @@ public class TvElectronics {
       lblPip.setIcon(new ImageIcon (resizedImage));
       
     } catch (Exception ex)  {
-      // TODO Auto-generated catch block
       ex.printStackTrace();
     }
     

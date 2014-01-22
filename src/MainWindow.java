@@ -118,7 +118,7 @@ public class MainWindow {
 		lblViewArea.setIcon(new ImageIcon(MainWindow.class
 				.getResource("/images/downformaintenance.png")));
 
-		final JPanel pipPanel = new JPanel();
+		JPanel pipPanel = new JPanel();
 		pipPanel.setBounds(953, 11, 351, 241);
 		pipPanel.setVisible(true);
 		frame.getContentPane().add(pipPanel);
@@ -136,7 +136,7 @@ public class MainWindow {
 		btchannelup.setBounds(10, 81, 89, 23);
 		pbtoverlay.add(btchannelup);
 
-		JButton btchanneldown = new JButton("↑");
+		JButton btchanneldown = new JButton("↓");
 		btchanneldown.setBounds(10, 149, 89, 23);
 		pbtoverlay.add(btchanneldown);
 
