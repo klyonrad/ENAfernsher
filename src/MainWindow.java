@@ -67,6 +67,12 @@ public class MainWindow {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
+		try {
+			fd = new Fehrnseher_Daten();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
 		initializeOverlay();
 		
 
@@ -136,9 +142,6 @@ public class MainWindow {
 
 		cbchannels = new JComboBox();
 		cbchannels.setBounds(10, 115, 89, 23);
-		for (int i = 0; i < channellist.size(); i++) {
-			cbchannels.addItem(channellist.get(i).getProgramm());
-		} // end of for
 		pbtoverlay.add(cbchannels);
 
 		slider = new JSlider(JSlider.VERTICAL, 0, 100, 20);
@@ -214,7 +217,6 @@ public class MainWindow {
 						cbchannels.setSelectedIndex(0);
 					} // end of if
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -233,7 +235,6 @@ public class MainWindow {
 						} catch (Exception ignoreCase) {
 						}
 					} catch (Exception ex) {
-						// TODO Auto-generated catch block
 						ex.printStackTrace();
 					}
 				} // end of if
@@ -328,15 +329,10 @@ public class MainWindow {
 		});
 
 		// load & save data:
-		try {
-			fd = new Fehrnseher_Daten();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
 
 		loadData();
-
+		
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
