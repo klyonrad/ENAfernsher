@@ -115,8 +115,7 @@ public class MainWindow {
 		final JLabel lblViewArea = new JLabel("", ViewAreaImage, JLabel.CENTER);
 		lblViewArea.setBounds(0, 0, 1294, 720);
 		pnlViewArea.add(lblViewArea);
-		lblViewArea.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/images/downformaintenance.png")));
+		lblViewArea.setIcon(new ImageIcon(MainWindow.class.getResource("/images/downformaintenance.png")));
 
 		JPanel pipPanel = new JPanel();
 		pipPanel.setBounds(953, 11, 351, 241);
@@ -124,8 +123,7 @@ public class MainWindow {
 		frame.getContentPane().add(pipPanel);
 
 		final JLabel lblPip = new JLabel("");
-		lblPip.setIcon(new ImageIcon(MainWindow.class
-				.getResource("/images/testImage.jpg")));
+		lblPip.setIcon(new ImageIcon(MainWindow.class.getResource("/images/downformaintenance.png")));
 		lblPip.setBorder(new LineBorder(Color.WHITE, 1));
 		pipPanel.add(lblPip);
 		lblPip.setVisible(true);
@@ -183,10 +181,8 @@ public class MainWindow {
 					cbframebounds.setSelectedIndex(0);
 					if (cbchannels.getItemCount() > 0
 							&& cbchannels.getSelectedIndex() > 0) {
-						cbchannels.setSelectedIndex(cbchannels
-								.getSelectedIndex() - 1);
-					} else if (cbchannels.getItemCount() > 0
-							&& cbchannels.getSelectedIndex() == 0) {
+						cbchannels.setSelectedIndex(cbchannels.getSelectedIndex() - 1);
+					} else if (cbchannels.getItemCount() > 0 && cbchannels.getSelectedIndex() == 0) {
 						cbchannels.setSelectedIndex(cbchannels.getItemCount() - 1);
 					} // end of if
 				} catch (Exception e) {
@@ -206,14 +202,9 @@ public class MainWindow {
 					} catch (Exception ignoreCase) {
 					}
 					cbframebounds.setSelectedIndex(0);
-					if (cbchannels.getItemCount() > 0
-							&& cbchannels.getSelectedIndex() < cbchannels
-									.getItemCount() - 1) {
-						cbchannels.setSelectedIndex(cbchannels
-								.getSelectedIndex() + 1);
-					} else if (cbchannels.getItemCount() > 0
-							&& cbchannels.getSelectedIndex() == cbchannels
-									.getItemCount() - 1) {
+					if (cbchannels.getItemCount() > 0 && cbchannels.getSelectedIndex() < cbchannels.getItemCount() - 1) {
+						cbchannels.setSelectedIndex(cbchannels.getSelectedIndex() + 1);
+					} else if (cbchannels.getItemCount() > 0 && cbchannels.getSelectedIndex() == cbchannels.getItemCount() - 1) {
 						cbchannels.setSelectedIndex(0);
 					} // end of if
 				} catch (Exception e) {
@@ -227,8 +218,7 @@ public class MainWindow {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					int number = cbchannels.getSelectedIndex();
 					try {
-						myTvElectronics.setChannel(channellist.get(number)
-								.getKanal(), false);
+						myTvElectronics.setChannel(channellist.get(number).getKanal(), false);
 						try {
 							myTvElectronics.recordTimeShift(false);
 							btplaypause.setText("||");
@@ -286,8 +276,7 @@ public class MainWindow {
 				if (btplaypause.getText() == "▶") {
 					btplaypause.setText("||");
 					try {
-						myTvElectronics.playTimeShift(true,
-								(int) (myTvElectronics.now() - timeStart));
+						myTvElectronics.playTimeShift(true,	(int) (myTvElectronics.now() - timeStart));
 						myTvElectronics.recordTimeShift(false);
 					} catch (Exception ex) {
 						System.err.println(ex);
@@ -353,8 +342,7 @@ public class MainWindow {
 			channellist = fd.getChannellist();
 			this.setChannels(channellist);
 
-			if (cbchannels.getItemAt(fd.getKanalAktuell()).toString()
-					.equals(fd.getKanalName())) {
+			if (cbchannels.getItemAt(fd.getKanalAktuell()).toString().equals(fd.getKanalName())) {
 				if (fd.getKanalAktuell() == 0) {
 					myTvElectronics.setChannel(channellist.get(0).getKanal(),
 							false);
@@ -364,9 +352,7 @@ public class MainWindow {
 				System.out.println("Set channel to " + fd.getKanalAktuell());
 			} else {
 				int index = 0;
-				while (index < cbchannels.getItemCount()
-						|| cbchannels.getItemAt(index).toString()
-								.equals(fd.getKanalName()) == true) {
+				while (index < cbchannels.getItemCount() || cbchannels.getItemAt(index).toString().equals(fd.getKanalName()) == true) {
 					if (cbchannels.getItemAt(index).equals(fd.getKanalName())) {
 						cbchannels.setSelectedIndex(index);
 						System.out.println("Set channel to " + index);
