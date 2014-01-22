@@ -125,7 +125,6 @@ public class MainWindow {
 		lblPip.setVisible(true);
 
 		myTvElectronics = new TvElectronics(pnlViewArea, pipPanel, lblViewArea);
-		channellist = myTvElectronics.scanChannels();
 
 		JButton btchannelup = new JButton("↑");
 		btchannelup.setBounds(10, 81, 89, 23);
