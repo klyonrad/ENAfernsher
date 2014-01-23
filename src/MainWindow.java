@@ -135,11 +135,11 @@ public class MainWindow {
     
     myTvElectronics = new TvElectronics(pnlViewArea, pipPanel, lblViewArea);
     
-    JButton btchannelup = new JButton("?");
+    JButton btchannelup = new JButton("↑");
     btchannelup.setBounds(10, 81, 89, 23);
     pbtoverlay.add(btchannelup);
     
-    JButton btchanneldown = new JButton("?");
+    JButton btchanneldown = new JButton("↓");
     btchanneldown.setBounds(10, 149, 89, 23);
     pbtoverlay.add(btchanneldown);
     
@@ -279,7 +279,7 @@ public class MainWindow {
     btplaypause.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        if (btplaypause.getText() == "?") {
+        if (btplaypause.getText() == "▶") {
           btplaypause.setText("||");
           try {
             myTvElectronics.playTimeShift(true, (int) (myTvElectronics.now() - timeStart));
@@ -288,7 +288,7 @@ public class MainWindow {
             System.err.println(ex);
           }
         } else {
-          btplaypause.setText("?");
+          btplaypause.setText("▶");
           try {
             myTvElectronics.recordTimeShift(true);
             timeStart = myTvElectronics.now();
